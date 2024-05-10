@@ -1,0 +1,70 @@
+---
+title: "mkhan_homework3"
+output: pdf_document
+date: "2023-10-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, problem_1}
+mobile_data <- read.csv("train.csv")
+
+# Part a
+mobile_data$price_range <- factor(mobile_data$price_range, labels = c("low", "medium", "high", "very_high"))
+
+# Part b
+price_to_color <- c("low" = "green", "medium" = "yellow", "high" = "red", "very_high" = "purple")
+plot(mobile_data$battery_power, mobile_data$ram,
+     main = "Scatter Plot of Battery Power vs. RAM",
+     xlab = "Battery Power(mAh)",
+     ylab = "RAM (MB)",
+     col = price_to_color[mobile_data$price_range])
+
+# Part c
+print(paste("Pearson correlation coeffiecient: ", cor(mobile_data$battery_power, mobile_data$ram))) 
+
+# Part d
+priceLow <- mobile_data[mobile_data$price_range == "low", ]
+
+priceMedium <- priceLow <- mobile_data[mobile_data$price_range == "medium", ]
+
+priceHigh <- mobile_data[mobile_data$price_range == "high", ]
+
+priceVeryHigh <- mobile_data[mobile_data$price_range == "very_high", ]
+
+# Part e
+print(paste("Pearson correlation coeffiecient (low price range): ", cor(priceLow$battery_power, priceLow$ram)))
+
+print(paste("Pearson correlation coeffiecient (medium price range): ", cor(priceMedium$battery_power, priceMedium$ram)))
+
+print(paste("Pearson correlation coeffiecient (high price range): ", cor(priceHigh$battery_power, priceHigh$ram)))
+
+print(paste("Pearson correlation coeffiecient (very high price range): ", cor(priceVeryHigh$battery_power, priceVeryHigh$ram)))
+
+print("For low priced phones, there's a positive correlation between battery power and RAM meaning that they are linear with one another (i.e if they are both low then the price will be low)")
+
+# Part f
+#lm()
+
+# Part h
+library(ggplot2)
+ggplot(mobile_data, aes(x = ram, fill = price_range)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_manual(values = c("red", "blue", "green", "purple")) +
+  theme_minimal() +
+  labs(title = "Density function of RAM based on Price Range",
+       x = "RAM (mb)",
+       y = "Price range")
+
+# Part i
+ggplot(mobile_data, aes(x = price_range, y = ram, fill = price_range)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("red", "blue", "green", "purple")) +
+  theme_minimal() +
+  labs(title = "Boxplot of RAM based on Price Range",
+       x = "Price Range",
+       y = "RAM (mb)")
+
+```

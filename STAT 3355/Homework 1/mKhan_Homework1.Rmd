@@ -1,0 +1,125 @@
+---
+title: "mKhan_HW#1"
+output: pdf_document
+date: "2023-08-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Problem 1
+
+round(8 + 9 - 7 / 3 ^ 0.3, digits=0)
+
+round(log2(sqrt((15+16)/(14+12))), digits=2)
+
+round(((11 + sin(pi/4)) / (factorial(3) + abs(-10)))^2, digits=0)
+
+round( 6 + 5 - 4 / 3^2 ,digits = 0)
+
+round(exp(sqrt((14 + 13) / (12 + 11))), digits=0)
+
+round(((11 + factorial(12)) / (factorial(13) + 14))^2, digits = 2)
+
+# Problem 2
+
+RF <- c(2.6, 3.05, 3.74, 3.48, 5.49, 4.25, 2.57, 2.18, 3.14, 4.82, 3.28, 3.01)
+
+
+
+RF_months <- c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+
+
+round(mean(RF), digits = 2)
+
+
+RF_months[RF == min(RF)]
+
+
+RF_months[RF == max(RF)]
+
+# Problem 3
+H2 <- c(2700, 2600, 3050, 2900, 3000, 2500, 2600, 3000, 2800, 3200, 2800, 3400)
+
+H2_months <- c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+
+
+sum(H2)
+
+
+H2_months[which(diff(H2, differences = 1) == max(diff(H2, differences = 1))) + 1]
+
+
+H2_months[which(diff(H2, differences = 1) == min(diff(H2, differences = 1))) + 1]
+
+
+
+# Problem 4
+
+
+arr <- c(1, -2, 3, -4, 5, 100)
+
+ each multiplied by -1
+product_arr <- arr * -1
+
+
+product_arr[ product_arr > 0]
+
+
+seq_to_fifty <- seq(1:50)
+
+
+check_if_even <- seq_to_fifty %% 2 ==0
+
+
+seq_to_fifty <- seq_to_fifty[check_if_even]
+seq_to_fifty
+
+
+calculate_mean <- function(values) {
+  sum(values) / length(values) 
+}
+
+# Problem 5
+
+PrintSquare <- function() {
+
+  for (i in 1:1000) {
+
+    if(sqrt(i) %% 1 == 0) {
+      print(i)
+    }
+  }
+}
+
+# Problem 6
+
+TwinPrimes <- function(n) {
+
+  primes <- c(2, 3)
+  
+
+  for (i in 4:n) {
+
+    is_prime <- TRUE
+    
+
+    for (j in primes) {
+      if (i %% j == 0) {
+        is_prime <- FALSE
+        break
+      }
+    }
+
+    if (is_prime) {
+      primes <- c(primes, i)
+    }
+  }
+  prime_diffs <- diff(primes)
+  TwinPrimes <- sum(prime_diffs == 2)
+  return(TwinPrimes)
+}
+
+TwinPrimes(32)

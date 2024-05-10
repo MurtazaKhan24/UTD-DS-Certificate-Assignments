@@ -1,0 +1,92 @@
+---
+title: "mKhan_Homework2"
+output: pdf_document
+date: "2023-09-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Problem 1a
+
+```{r, rewriting_code_block_a}
+mat <- matrix(c(34, 23, 53, 6, 78, 93, 12, 41, 99), nrow = 3)
+
+df <- as.data.frame(mat)
+names(df) <- c("score_given_to_car_on_driving_test",
+               "score_given_to_van_on_driving_test",
+              "score_given_to_truck_on_driving_test")
+```
+
+#Problem 1b
+
+```{r, rewriting_code_block_b}
+library(ggplot2)
+head(mpg)
+second_version_of_mpg <- mpg[mpg$cyl == 6,]
+second_version_of_mpg$class <- as.character(second_version_of_mpg$class)
+
+```
+
+#Problem 2
+```{r, us_senate_data}
+#Part a
+senate_data <- read.csv("1976-2020-senate.csv", colClasses = c("year" = "factor", "party_selected" = "factor", "state" = "factor"))
+
+
+#Part b
+# Create a subset from main dataset extracting information from Texas with specified columns
+texas_subset <- subset(senate_data,state == 'TEXAS',select = c('year','state','candidatevotes','totalvotes', 'party_simplified'))
+
+#Part c
+dem <- subset(texas_subset, party_simplified == 'DEMOCRAT')
+round(mean(dem$candidatevotes), digits = 0)
+median(dem$candidatevotes)
+
+rep <- subset(texas_subset, party_simplified == 'REPUBLICAN')
+round(mean(rep$candidatevotes), digits = 0)
+median(rep$candidatevotes)
+
+lib <- subset(texas_subset, party_simplified == 'LIBERTARIAN')
+round(mean(lib$candidatevotes), digits = 0)
+median(lib$candidatevotes)
+
+other <- subset(texas_subset, party_simplified == 'OTHER')
+round(mean(other$candidatevotes), digits = 0)
+median(other$candidatevotes)
+
+#Part d
+
+
+```
+
+# Problem 3
+```{r, tae}
+tae_data <- read.table("tae.data", sep = ",")
+names(tae_data) <- c("eng_speaker", "instructor_id", "course_id", "regular_sem", "size", "class_attribute")
+
+id_seq <- seq(from = 1, to = 151)
+tae_data$ta_id <- id_seq[1:nrow(tae_data)]
+
+#Part a
+tae_data$ta_id <- tae_data$eng_speaker == 1
+
+#Part b
+tae_data$regular_sem <- tae_data$regular_sem == 2
+
+#Part c
+tae_data$class_attribute <- factor(tae_data$class_attribute, levels = c(1, 2, 3), labels = c("low", "medium", "high"))
+
+str(tae_data)
+
+round(mean(tae_data$size[tae_data$regular_sem == TRUE]), digits = 2)
+
+round(median(tae_data$size[tae_data$regular_sem == TRUE]), digits = 2)
+
+round(mean(tae_data$size[tae_data$regular_sem == FALSE], digits = 2))
+
+round(median(tae_data$size[tae_data$regular_sem == FALSE], digits = 2))
+
+
+```
